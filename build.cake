@@ -27,7 +27,11 @@ Task("Build")
 
 Task("CopyDependencies")
 	.Does(() => {
-			CopyFiles(GetFiles("./src/packages/**/*.nupkg"), string.Format("./src/TITcs.SharePoint.Commons/**/bin/{0}", configuration));
+			var targetDir = string.Format("./src/TITcs.SharePoint.Commons/bin/{0}", configuration);
+
+			Information("Copying files to " + targetDir);
+
+			CopyFiles("./src/packages/**/*.nupkg", targetDir);
 		});
 
 Task("Pack")
