@@ -25,8 +25,16 @@ Task("Build")
 		MSBuild(solution, settings => settings.SetConfiguration(configuration));
 	});
 
-Task("Pack")
+Task("CopyDependencies")
 	.Does(() => {
+			CopyFiles(GetFiles("./src/packages/**/*.nupkg"), string.Format("./src/TITcs.SharePoint.Commons/**/bin/{0}", configuration));
+		});
+
+Task("Pack")
+	.IsDependentOn("CopyDependencies")
+	.Does(() => {
+			Information(string.Format("Packing version {0} of the package.", string.Concat("0.0.", buildNumber)));
+
 			var nuGetPackSettings = new NuGetPackSettings {
 				Id = "TITcs.SharePoint.Commons",
 				Version = string.Format("0.0.{0}", buildNumber),
