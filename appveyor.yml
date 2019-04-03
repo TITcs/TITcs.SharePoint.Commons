@@ -9,9 +9,10 @@ configuration: Release
 build_script:
   - ps: .\build.ps1 -Script build.cake
 
+after_build:
+  - ps: .\build.ps1 -Target Publish -ScriptArgs '-version=0.1.{build}'
+
 test: off
-
-
 
 notifications:
 - provider: Email
