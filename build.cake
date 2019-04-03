@@ -9,18 +9,15 @@ Task("Restore")
 
 Task("Clean")
 	.Does(() => {
-		Information("Cleaning build directories!");
 		CleanDirectories(string.Format("./src/TITcs.SharePoint.Commons/**/obj/{0}", configuration));
 		CleanDirectories(string.Format("./src/TITcs.SharePoint.Commons/**/bin/{0}", configuration));
-		Information("Build directories cleaned successfully!");
 	});
 
 Task("Build")
-	.IsDependentOn("Restore")
 	.IsDependentOn("Clean")
+	.IsDependentOn("Restore")
 	.Does(() => {
-		DotNetBuild(solution);
-		Information("Project compiled suuccessfully!");
+		MSBuild(solution, settings => settings.SetConfiguration(configuration));
 	});
 
 RunTarget(target);

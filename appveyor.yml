@@ -11,9 +11,7 @@ build_script:
 
 test: off
 
-artifacts:
-  - path: src\nuget\TITcs.SharePoint.Commons
-    name: src
+
 
 notifications:
 - provider: Email
