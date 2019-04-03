@@ -1,0 +1,25 @@
+#---------------------------------#
+#  Build Script                   #
+#---------------------------------#
+
+version: 0.1.{build}
+
+configuration: Release
+
+build_script:
+  - ps: .\build.ps1 -Script build.cake
+
+test: off
+
+artifacts:
+  - path: src\nuget\TITcs.SharePoint.Commons
+    name: src
+
+notifications:
+- provider: Email
+  to:
+  - marcos.pacheco@titcs.com.br
+  subject: TITcs.SharePoint.Commons Build Status
+  on_build_success: false
+  on_build_failure: true
+  on_build_status_changed: true
