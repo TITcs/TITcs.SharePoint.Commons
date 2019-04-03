@@ -1,6 +1,6 @@
 var target = Argument("target", "Build");
 var configuration = Argument("configuration", "Release");
-var version = Argument<string>("packageVersion");
+var version = EnvironmentVariable("PACKAGE_VERSION");
 var projectFile = File("./src/TITcs.SharePoint.Commons/TITcs.SharePoint.Commons.csproj");
 var solution = File("./src/TITcs.SharePoint.Commons.sln");
 
