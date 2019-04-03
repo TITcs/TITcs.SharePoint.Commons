@@ -29,7 +29,7 @@ Task("Pack")
 	.Does(() => {
 			var nuGetPackSettings = new NuGetPackSettings {
 				Id = "TITcs.SharePoint.Commons",
-				Version = version
+				Version = version,
 				Title = "Utility library for common operations in SharePoint solutions.",
 				Authors = new string [] { "Marcos Natan" },
 				Symbols = false,
