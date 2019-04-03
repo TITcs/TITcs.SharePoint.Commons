@@ -34,7 +34,7 @@ Task("CopyDependencies")
 
 				Information(string.Format("Copying {0} to folder {1}.", file.GetFilename(), targetDir));
 
-				CopyFile(file.FullPath, System.IO.Path.Combine(targetDir, file.GetFilename()));
+				CopyFile(file.FullPath, System.IO.Path.Combine(targetDir, file.GetFilename().ToString()));
 			}
 		});
 
