@@ -7,7 +7,7 @@ version: 0.1.{build}
 configuration: Release
 
 build_script:
-  - ps: .\build.ps1 -Script build.cake
+  - ps: .\build.ps1 -Script build.cake -ScriptArgs '-version=0.1.{build}'
 
 after_build:
   - ps: .\build.ps1 -Target Publish -ScriptArgs '-version=0.1.{build}'
