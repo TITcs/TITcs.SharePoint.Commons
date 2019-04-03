@@ -36,7 +36,6 @@ Task("Pack")
 				ProjectUrl = new Uri("https://github.com/TITcs/TITcs.SharePoint.Commons"),
 				LicenseUrl = new Uri("https://github.com/TITcs/TITcs.SharePoint.Commons/blob/master/LICENSE"),
 				OutputDirectory = nugetPackagesLocation,
-				BasePath = string.Format("./src/TITcs.SharePoint.Commons/bin/{0}", configuration),
 				Properties = new Dictionary<string, string> {
 					{ "Configuration", configuration }
 				}
