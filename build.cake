@@ -28,10 +28,14 @@ Task("Build")
 Task("CopyDependencies")
 	.Does(() => {
 			var targetDir = string.Format("./src/TITcs.SharePoint.Commons/bin/{0}", configuration);
+			var files = GetFiles("./src/packages/**/*.nupkg");
 
-			Information("Copying files to " + targetDir);
+			foreach(var file in files) {
 
-			CopyFiles("./src/packages/**/*.nupkg", targetDir);
+				Information(string.Format("Copying {0} to folder {1}.", file.GetFilename(), targetDir));
+
+				CopyFile(file, System.IO.Path.Combine(targetDir, file.GetFilename()));
+			}
 		});
 
 Task("Pack")
