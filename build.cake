@@ -1,6 +1,6 @@
 var target = Argument("target", "Build");
 var configuration = Argument("configuration", "Release");
-var version = EnvironmentVariable("PACKAGE_VERSION");
+var buildNumber = EnvironmentVariable("APPVEYOR_BUILD_NUMBER");
 var projectFile = File("./src/TITcs.SharePoint.Commons/TITcs.SharePoint.Commons.csproj");
 var solution = File("./src/TITcs.SharePoint.Commons.sln");
 
@@ -29,7 +29,7 @@ Task("Pack")
 	.Does(() => {
 			var nuGetPackSettings = new NuGetPackSettings {
 				Id = "TITcs.SharePoint.Commons",
-				Version = version,
+				Version = string.Format("0.0.{0}", buildNumber),
 				Title = "Utility library for common operations in SharePoint solutions.",
 				Authors = new string [] { "Marcos Natan" },
 				Symbols = false,
@@ -49,7 +49,7 @@ Task("Publish")
 	.Does(() => {
 			var nugetKey = EnvironmentVariable("NUGET_KEY");
 
-			NuGetPush(string.Format("{0}/TITcs.SharePoint.Commons{1}.nupkg", nugetPackagesLocation, version), new NuGetPushSettings {
+			NuGetPush(string.Format("{0}/TITcs.SharePoint.Commons{1}.nupkg", nugetPackagesLocation, string.Format("0.0.{0}", buildNumber)), new NuGetPushSettings {
 					Source = "https://www.nuget.org/",
 					ApiKey = nugetKey
 				});
