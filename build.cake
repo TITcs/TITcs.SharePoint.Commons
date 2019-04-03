@@ -1,20 +1,21 @@
 var target = Argument("target", "Build");
 var configuration = Argument("configuration", "Release");
-var buildNumber = EnvironmentVariable("APPVEYOR_BUILD_NUMBER");
-var projectFile = File("./src/TITcs.SharePoint.Commons/TITcs.SharePoint.Commons.csproj");
-var solution = File("./src/TITcs.SharePoint.Commons.sln");
+var buildNumber = EnvironmentVariable("APPVEYOR_BUILD_NUMBER", "19");
+var version = string.Format("0.1.{0}", buildNumber);
+var projectFile = File(".\\src\\TITcs.SharePoint.Commons\\TITcs.SharePoint.Commons.csproj");
+var solutionFile = File(".\\src\\TITcs.SharePoint.Commons.sln");
 
-var nugetPackagesLocation = "./packages";
+var nugetPackagesLocation = ".\\packages";
 
 Task("Restore")
 	.Does(() => {
-		NuGetRestore(solution);
+		NuGetRestore(solutionFile);
 	});
 
 Task("Clean")
 	.Does(() => {
-		CleanDirectories(string.Format("./src/TITcs.SharePoint.Commons/**/obj/{0}", configuration));
-		CleanDirectories(string.Format("./src/TITcs.SharePoint.Commons/**/bin/{0}", configuration));
+		CleanDirectories(string.Format(".\\src\\TITcs.SharePoint.Commons\\**\\obj\\{0}", configuration));
+		CleanDirectories(string.Format(".\\src\\TITcs.SharePoint.Commons\\**\\bin\\{0}", configuration));
 		CleanDirectory(nugetPackagesLocation);
 	});
 
@@ -22,31 +23,18 @@ Task("Build")
 	.IsDependentOn("Clean")
 	.IsDependentOn("Restore")
 	.Does(() => {
-		MSBuild(solution, settings => settings.SetConfiguration(configuration));
+		MSBuild(solutionFile, settings => settings.SetConfiguration(configuration));
 	});
 
-Task("CopyDependencies")
-	.Does(() => {
-			var targetDir = string.Format("./src/TITcs.SharePoint.Commons/bin/{0}", configuration);
-			var files = GetFiles("./src/packages/**/*.nupkg");
-
-			foreach(var file in files) {
-
-				Information(string.Format("Copying {0} to folder {1}.", file.GetFilename(), targetDir));
-
-				CopyFile(file.FullPath, System.IO.Path.Combine(targetDir, file.GetFilename().ToString()));
-			}
-		});
-
 Task("Pack")
-	.IsDependentOn("CopyDependencies")
 	.Does(() => {
-			Information(string.Format("Packing version {0} of the package.", string.Concat("0.0.", buildNumber)));
+			Information(string.Format("Packing version {0} of the package.", version));
 
 			var nuGetPackSettings = new NuGetPackSettings {
 				Id = "TITcs.SharePoint.Commons",
-				Version = string.Format("0.0.{0}", buildNumber),
-				Title = "Utility library for common operations in SharePoint solutions.",
+				Version = version,
+				Title = "TITcs.SharePoint.Commons",
+				Description = "Utility library for common operations in SharePoint solutions.",
 				Authors = new string [] { "Marcos Natan" },
 				Symbols = false,
 				ProjectUrl = new Uri("https://github.com/TITcs/TITcs.SharePoint.Commons"),
@@ -62,9 +50,9 @@ Task("Pack")
 Task("Publish")
 	.IsDependentOn("Pack")
 	.Does(() => {
-			var nugetKey = EnvironmentVariable("NUGET_KEY");
+			var nugetKey = EnvironmentVariable("NUGET_KEY", "546a65d46a5s4d6a546544345345fgdfgdfg");
 
-			NuGetPush(string.Format("{0}/TITcs.SharePoint.Commons{1}.nupkg", nugetPackagesLocation, string.Format("0.0.{0}", buildNumber)), new NuGetPushSettings {
+			NuGetPush(string.Format("{0}\\TITcs.SharePoint.Commons.{1}.nupkg", nugetPackagesLocation, version), new NuGetPushSettings {
 					Source = "https://www.nuget.org/",
 					ApiKey = nugetKey
 				});
