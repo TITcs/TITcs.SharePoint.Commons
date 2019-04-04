@@ -46,7 +46,7 @@ Task("Pack")
 Task("Publish")
 	.IsDependentOn("Pack")
 	.Does(() => {
-			var nugetKey = EnvironmentVariable("NUGET_KEY", "546a65d46a5s4d6a546544345345fgdfgdfg");
+			var nugetKey = EnvironmentVariable("NUGET_KEY");
 
 			NuGetPush(string.Format("{0}\\TITcs.SharePoint.Commons.{1}.nupkg", nugetPackagesLocation, version), new NuGetPushSettings {
 					Source = "https://www.nuget.org/",
