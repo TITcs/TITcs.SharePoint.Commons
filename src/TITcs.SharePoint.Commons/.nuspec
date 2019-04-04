@@ -11,5 +11,8 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<tags>SharePoint Utilities</tags>
 		<language>en-US</language>
+    <files>
+      <file src="bin\Release\*.*" target="lib/net45" />
+    </files>
   </metadata>
 </package>
