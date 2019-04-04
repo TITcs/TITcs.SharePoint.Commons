@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>$id$</id>
+		<title>$id$</title>
+    <version>$version$</version>
+    <description>Utility library for common operations in SharePoint solutions.</description>
+    <authors>Marcos Natan</authors>
+		<projectUrl>https://github.com/TITcs/TITcs.SharePoint.Commons</projectUrl>
+		<licenseUrl>https://github.com/TITcs/TITcs.SharePoint.Commons/blob/master/LICENSE</licenseUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<tags>SharePoint Utilities</tags>
+		<language>en-US</language>
+  </metadata>
+</package>

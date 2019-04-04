@@ -2,7 +2,7 @@ var target = Argument("target", "Build");
 var configuration = Argument("configuration", "Release");
 var buildNumber = EnvironmentVariable("APPVEYOR_BUILD_NUMBER", "19");
 var version = string.Format("0.1.{0}", buildNumber);
-var projectFile = File(".\\src\\TITcs.SharePoint.Commons\\TITcs.SharePoint.Commons.csproj");
+var projectFile = File(".\\src\\TITcs.SharePoint.Commons\\.nuspec");
 var solutionFile = File(".\\src\\TITcs.SharePoint.Commons.sln");
 
 var nugetPackagesLocation = ".\\packages";
@@ -30,15 +30,11 @@ Task("Pack")
 	.Does(() => {
 			Information(string.Format("Packing version {0} of the package.", version));
 
+			var packageId= "TITcs.SharePoint.Commons";
 			var nuGetPackSettings = new NuGetPackSettings {
-				Id = "TITcs.SharePoint.Commons",
+				Id = packageId,
+				Title = packageId,
 				Version = version,
-				Title = "TITcs.SharePoint.Commons",
-				Description = "Utility library for common operations in SharePoint solutions.",
-				Authors = new string [] { "Marcos Natan" },
-				Symbols = false,
-				ProjectUrl = new Uri("https://github.com/TITcs/TITcs.SharePoint.Commons"),
-				LicenseUrl = new Uri("https://github.com/TITcs/TITcs.SharePoint.Commons/blob/master/LICENSE"),
 				OutputDirectory = nugetPackagesLocation,
 				Properties = new Dictionary<string, string> {
 					{ "Configuration", configuration }

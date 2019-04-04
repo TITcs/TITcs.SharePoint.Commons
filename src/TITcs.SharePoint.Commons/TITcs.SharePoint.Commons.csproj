@@ -62,6 +62,7 @@
     <Compile Include="Utils\RegistryUtils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".nuspec" />
     <None Include="key.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
