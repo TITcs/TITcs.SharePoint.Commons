@@ -7,12 +7,12 @@
     <description>Utility library for common operations in SharePoint solutions.</description>
     <authors>Marcos Natan</authors>
 		<projectUrl>https://github.com/TITcs/TITcs.SharePoint.Commons</projectUrl>
-		<licenseUrl>https://github.com/TITcs/TITcs.SharePoint.Commons/blob/master/LICENSE</licenseUrl>
+		<license type="expression">MIT</license>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<tags>SharePoint Utilities</tags>
 		<language>en-US</language>
-    <files>
-      <file src="bin\Release\*.*" target="lib/net45" />
-    </files>
   </metadata>
+  <files>
+    <file src="bin\Release\*.*" target="lib\net45" />
+  </files>
 </package>
